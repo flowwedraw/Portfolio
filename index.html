@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Портфолио AI Builder: AI-агенты, автоматизация, SaaS, Telegram-боты, LLM-инструменты, OpenClaw, Codex, Claude.">
+  <meta property="og:title" content="Егор — AI Builder Portfolio">
+  <meta property="og:description" content="Практические AI-проекты: Solana sniper bot, SaaS-платформа, multi-agent content factory, self-evolving assistant, ClawPad.">
+  <meta property="og:type" content="website">
+  <title>Егор — AI Builder Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+
+    :root {
+      --bg: #0d0d0d;
+      --surface: #151515;
+      --surface-2: #1d1d1d;
+      --surface-3: #242424;
+      --line: rgba(255, 255, 255, 0.09);
+      --line-strong: rgba(255, 255, 255, 0.16);
+      --text: #f2efe9;
+      --text-soft: rgba(242, 239, 233, 0.74);
+      --muted: #9a9a9a;
+      --accent: #c8f060;
+      --cyan: #7dd3fc;
+      --pink: #f9a8d4;
+      --amber: #fbbf24;
+      --mono: "DM Mono", monospace;
+      --serif: "Instrument Serif", serif;
+      --sans: "Manrope", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    html {
+      background: var(--bg);
+      color: var(--text);
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--sans);
+      font-size: 15px;
+      line-height: 1.65;
+      background:
+        radial-gradient(circle at 16% 0%, rgba(200, 240, 96, 0.08), transparent 28rem),
+        radial-gradient(circle at 88% 10%, rgba(125, 211, 252, 0.07), transparent 24rem),
+        var(--bg);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .page {
+      width: min(100%, 1040px);
+      margin: 0 auto;
+      padding: 40px 24px 72px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 10px 0 52px;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .topbar-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 14px;
+    }
+
+    .topbar a {
+      border-bottom: 1px solid transparent;
+      transition: color 160ms ease, border-color 160ms ease;
+    }
+
+    .topbar a:hover {
+      color: var(--text);
+      border-color: var(--line-strong);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+      gap: 40px;
+      align-items: end;
+      padding-bottom: 46px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .eyebrow {
+      margin: 0 0 18px;
+      color: var(--accent);
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      max-width: 720px;
+      margin: 0 0 22px;
+      font-family: var(--serif);
+      font-size: clamp(42px, 7vw, 78px);
+      font-weight: 400;
+      line-height: 0.98;
+      letter-spacing: 0;
+    }
+
+    h1 em {
+      color: var(--accent);
+      font-style: italic;
+    }
+
+    .hero-sub {
+      max-width: 640px;
+      margin: 0;
+      color: var(--text-soft);
+      font-size: 16px;
+      line-height: 1.8;
+    }
+
+    .hero-panel {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(21, 21, 21, 0.82);
+      padding: 22px;
+    }
+
+    .panel-title {
+      margin: 0 0 16px;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .metric {
+      min-height: 92px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--surface);
+    }
+
+    .metric strong {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--text);
+      font-family: var(--serif);
+      font-size: 27px;
+      font-weight: 400;
+      line-height: 1;
+    }
+
+    .metric span {
+      display: block;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 26px;
+    }
+
+    .tag, .tech {
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      padding: 4px 10px;
+      border: 1px solid var(--line-strong);
+      border-radius: 4px;
+      background: rgba(255, 255, 255, 0.03);
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.03em;
+      white-space: nowrap;
+    }
+
+    .section {
+      padding: 42px 0 0;
+    }
+
+    .section-head {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 20px;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    h2 {
+      margin: 0;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .section-note {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .summary-card {
+      min-height: 170px;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(21, 21, 21, 0.76);
+    }
+
+    .summary-card h3 {
+      margin: 0 0 10px;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    .summary-card p {
+      margin: 0;
+      color: var(--text-soft);
+      font-size: 13.5px;
+      line-height: 1.7;
+    }
+
+    .projects {
+      display: grid;
+      gap: 16px;
+    }
+
+    .project {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(21, 21, 21, 0.72);
+      overflow: hidden;
+    }
+
+    .project-main {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 190px;
+      gap: 22px;
+      padding: 24px;
+    }
+
+    .project-title-row {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 8px;
+    }
+
+    h3 {
+      margin: 0;
+      font-size: 21px;
+      font-weight: 700;
+      line-height: 1.25;
+      letter-spacing: 0;
+    }
+
+    .project-type {
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.04em;
+    }
+
+    .project-desc {
+      max-width: 720px;
+      margin: 0 0 18px;
+      color: var(--text-soft);
+      font-size: 14px;
+      line-height: 1.8;
+    }
+
+    .badge {
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      min-height: 26px;
+      padding: 4px 10px;
+      border: 1px solid var(--line-strong);
+      border-radius: 999px;
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .live { color: var(--accent); border-color: rgba(200, 240, 96, 0.36); background: rgba(200, 240, 96, 0.09); }
+    .wip { color: var(--amber); border-color: rgba(251, 191, 36, 0.34); background: rgba(251, 191, 36, 0.08); }
+    .paused { color: var(--cyan); border-color: rgba(125, 211, 252, 0.32); background: rgba(125, 211, 252, 0.07); }
+    .current { color: var(--pink); border-color: rgba(249, 168, 212, 0.34); background: rgba(249, 168, 212, 0.08); }
+
+    .list {
+      display: grid;
+      gap: 8px;
+      margin: 0 0 18px;
+      padding: 0;
+      list-style: none;
+    }
+
+    .list li {
+      position: relative;
+      padding-left: 18px;
+      color: rgba(242, 239, 233, 0.68);
+      font-size: 13.5px;
+      line-height: 1.65;
+    }
+
+    .list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.72em;
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--line-strong);
+    }
+
+    .list strong {
+      color: var(--text);
+      font-weight: 600;
+    }
+
+    .tech-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+    }
+
+    .project-aside {
+      display: grid;
+      align-content: start;
+      gap: 10px;
+    }
+
+    .aside-box {
+      min-height: 78px;
+      padding: 13px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--surface-2);
+    }
+
+    .aside-box span {
+      display: block;
+      margin-bottom: 6px;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .aside-box strong {
+      display: block;
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 600;
+      line-height: 1.45;
+    }
+
+    .project-link {
+      display: inline-flex;
+      width: fit-content;
+      margin-top: 14px;
+      color: var(--text);
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.04em;
+      border-bottom: 1px solid var(--line-strong);
+    }
+
+    .process {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .step {
+      min-height: 150px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: rgba(21, 21, 21, 0.72);
+    }
+
+    .step span {
+      color: var(--accent);
+      font-family: var(--mono);
+      font-size: 11px;
+    }
+
+    .step h3 {
+      margin: 8px 0 8px;
+      font-size: 15px;
+    }
+
+    .step p {
+      margin: 0;
+      color: var(--text-soft);
+      font-size: 13px;
+      line-height: 1.65;
+    }
+
+    .footer {
+      margin-top: 48px;
+      padding-top: 22px;
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 11px;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+    }
+
+    @media (max-width: 880px) {
+      .hero,
+      .project-main {
+        grid-template-columns: 1fr;
+      }
+
+      .summary,
+      .process {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .project-aside {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .page {
+        padding: 26px 18px 56px;
+      }
+
+      .topbar {
+        align-items: flex-start;
+        flex-direction: column;
+        padding-bottom: 40px;
+      }
+
+      .topbar-links {
+        justify-content: flex-start;
+      }
+
+      .hero {
+        gap: 28px;
+        padding-bottom: 36px;
+      }
+
+      .metric-grid,
+      .summary,
+      .process,
+      .project-aside {
+        grid-template-columns: 1fr;
+      }
+
+      .section-head {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 8px;
+      }
+
+      .project-main {
+        padding: 18px;
+      }
+
+      .project-title-row {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <nav class="topbar" aria-label="Навигация">
+      <a href="#top">Егор · AI Builder</a>
+      <div class="topbar-links">
+        <a href="#projects">Проекты</a>
+        <a href="#skills">Навыки</a>
+        <a href="https://github.com/flowwedraw" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </nav>
+
+    <section class="hero" id="top">
+      <div>
+        <p class="eyebrow">AI-native product builder · 2024-2026</p>
+        <h1>Собираю <em>AI-системы</em>, которые решают прикладные задачи</h1>
+        <p class="hero-sub">
+          Проектирую архитектуру, декомпозирую сложные задачи и довожу продукты до рабочего состояния через Codex, Claude, OpenClaw и API-интеграции. Мой фокус: AI-агенты, автоматизация, SaaS-оболочки, Telegram-боты и LLM-продукты для бизнеса.
+        </p>
+        <div class="tags" aria-label="Ключевой стек">
+          <span class="tag">Codex</span>
+          <span class="tag">Claude</span>
+          <span class="tag">OpenClaw</span>
+          <span class="tag">AI Agents</span>
+          <span class="tag">Prompt Engineering</span>
+          <span class="tag">Telegram Bot API</span>
+          <span class="tag">PostgreSQL</span>
+          <span class="tag">SaaS</span>
+        </div>
+      </div>
+
+      <aside class="hero-panel" aria-label="Кратко о профиле">
+        <p class="panel-title">Профиль</p>
+        <div class="metric-grid">
+          <div class="metric">
+            <strong>4</strong>
+            <span>крупных самостоятельных AI-проекта</span>
+          </div>
+          <div class="metric">
+            <strong>22k</strong>
+            <span>строк в Rust-проекте, собранном с AI-помощью</span>
+          </div>
+          <div class="metric">
+            <strong>&lt;0.5s</strong>
+            <span>реакция торгового бота от сигнала до покупки</span>
+          </div>
+          <div class="metric">
+            <strong>1+ год</strong>
+            <span>практики с LLM, агентами и AI-инструментами</span>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <section class="section" id="skills">
+      <div class="section-head">
+        <h2>Что я умею</h2>
+        <p class="section-note">Сильная сторона — превращать идею в работающую систему.</p>
+      </div>
+      <div class="summary">
+        <article class="summary-card">
+          <h3>Архитектура AI-систем</h3>
+          <p>Разбиваю продукт на роли, инструменты, память, контекст, ограничения и сценарии. Проектирую агентные цепочки и многошаговые workflows.</p>
+        </article>
+        <article class="summary-card">
+          <h3>Автоматизация и интеграции</h3>
+          <p>Подключаю Telegram, Google API, Whisper, базы данных, внешние сервисы и LLM-инструменты так, чтобы пользователь получал готовый результат.</p>
+        </article>
+        <article class="summary-card">
+          <h3>AI-assisted delivery</h3>
+          <p>Работаю через постановку задач AI-инструментам, ревизию результата, тестирование гипотез и итерации. Не просто генерирую код, а управляю сборкой продукта.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="projects">
+      <div class="section-head">
+        <h2>Проекты</h2>
+        <p class="section-note">Реальные кейсы, на которых строился практический опыт.</p>
+      </div>
+
+      <div class="projects">
+        <article class="project">
+          <div class="project-main">
+            <div>
+              <div class="project-title-row">
+                <h3>Solana Sniper Bot + SaaS</h3>
+                <span class="badge live">Запущен</span>
+              </div>
+              <p class="project-type">High-frequency trading bot · Rust · Solana · Telegram · PostgreSQL</p>
+              <p class="project-desc">
+                Автономный торговый бот для покупки токенов на Solana по сигналам из Telegram-каналов. Система проходит полный цикл без участия пользователя: мониторинг, извлечение контракта, сборка транзакции, покупка, управление TP/SL/timeout и продажа.
+              </p>
+              <ul class="list">
+                <li><strong>Оптимизация задержки:</strong> keepalive-соединения, предсборка транзакций, прогрев подписей, быстрый запрос актуальной цены.</li>
+                <li><strong>Извлечение адресов через regex:</strong> без LLM, чтобы не терять миллисекунды на задаче, где достаточно строгого формата Solana-адреса.</li>
+                <li><strong>Стриминг блокчейна:</strong> предварительная обработка миграций PumpFun/PumpSwap и хранение данных с TTL в PostgreSQL.</li>
+                <li><strong>SaaS-оболочка:</strong> изолированные воркспейсы, раздельное хранение данных и логов, настройка каналов и типов токенов для каждого клиента.</li>
+              </ul>
+              <div class="tech-row">
+                <span class="tech">Rust</span>
+                <span class="tech">Solana</span>
+                <span class="tech">Telegram Bot API</span>
+                <span class="tech">PostgreSQL</span>
+                <span class="tech">WebSocket</span>
+                <span class="tech">RPC</span>
+                <span class="tech">SaaS</span>
+              </div>
+            </div>
+            <aside class="project-aside">
+              <div class="aside-box"><span>Масштаб</span><strong>~22 000 строк кода</strong></div>
+              <div class="aside-box"><span>Цель</span><strong>Менее 0.5 секунды до покупки</strong></div>
+              <div class="aside-box"><span>Роль</span><strong>Архитектура, постановка задач, сборка через AI</strong></div>
+            </aside>
+          </div>
+        </article>
+
+        <article class="project">
+          <div class="project-main">
+            <div>
+              <div class="project-title-row">
+                <h3>YouTube Content Factory</h3>
+                <span class="badge wip">В разработке</span>
+              </div>
+              <p class="project-type">Multi-agent system · Viral content analysis · YouTube Shorts</p>
+              <p class="project-desc">
+                Мультиагентная фабрика для анализа и производства YouTube Shorts: отдельные агенты отвечают за поиск трендов, деконструкцию вирусных видео, сценарий и подготовку материалов.
+              </p>
+              <ul class="list">
+                <li><strong>Аналитик:</strong> ищет видео, которые аномально выросли в выбранной нише и регионе.</li>
+                <li><strong>Деконструкция:</strong> выделяет хук, структуру удержания, эмоциональный триггер, монтажную механику и причину вирусности.</li>
+                <li><strong>Режиссёр:</strong> собирает оригинальный сценарий по найденным паттернам, без прямого копирования исходника.</li>
+                <li><strong>Оркестратор:</strong> управляет цепочкой агентов и передаёт результат между этапами.</li>
+              </ul>
+              <div class="tech-row">
+                <span class="tech">LLM API</span>
+                <span class="tech">AI Agents</span>
+                <span class="tech">Orchestrator</span>
+                <span class="tech">YouTube Analysis</span>
+                <span class="tech">OpenClaw</span>
+              </div>
+            </div>
+            <aside class="project-aside">
+              <div class="aside-box"><span>Фокус</span><strong>Анализ вирусности и удержания</strong></div>
+              <div class="aside-box"><span>Подход</span><strong>Роли агентов вместо одного промпта</strong></div>
+              <div class="aside-box"><span>Статус</span><strong>Рабочий модуль анализа и сценария</strong></div>
+            </aside>
+          </div>
+        </article>
+
+        <article class="project">
+          <div class="project-main">
+            <div>
+              <div class="project-title-row">
+                <h3>Self-Evolving AI Assistant</h3>
+                <span class="badge paused">Пауза</span>
+              </div>
+              <p class="project-type">Autonomous AI agent · Memory · Self-evolution · OpenClaw</p>
+              <p class="project-desc">
+                Экспериментальный персональный ассистент с многоуровневой памятью, автономными действиями и механизмом адаптации поведения на основе накопленного опыта.
+              </p>
+              <ul class="list">
+                <li><strong>Память по слоям:</strong> разделение фактов, опыта, задач и инструкций, чтобы не раздувать контекст при каждом обращении.</li>
+                <li><strong>Агентный цикл:</strong> планирование, действие через инструменты, наблюдение результата и корректировка следующего шага.</li>
+                <li><strong>Автономный outreach:</strong> агент искал подходящие площадки, регистрировался, отправлял предложения и фиксировал ответы.</li>
+                <li><strong>Интернет и почта:</strong> поиск информации, подготовка сообщений и выполнение внешних действий через доступные инструменты.</li>
+              </ul>
+              <div class="tech-row">
+                <span class="tech">OpenClaw</span>
+                <span class="tech">Agent Memory</span>
+                <span class="tech">Tool Calling</span>
+                <span class="tech">Web Research</span>
+                <span class="tech">Email Automation</span>
+              </div>
+            </div>
+            <aside class="project-aside">
+              <div class="aside-box"><span>Задача</span><strong>Ассистент, который действует сам</strong></div>
+              <div class="aside-box"><span>Риск-зона</span><strong>Контекст, память, контроль действий</strong></div>
+              <div class="aside-box"><span>Результат</span><strong>Рабочий прототип на паузе</strong></div>
+            </aside>
+          </div>
+        </article>
+
+        <article class="project">
+          <div class="project-main">
+            <div>
+              <div class="project-title-row">
+                <h3>ClawPad — AI-ассистент для бизнеса</h3>
+                <span class="badge current">Текущий</span>
+              </div>
+              <p class="project-type">SaaS · AI personal assistant · Google API · Whisper · OpenClaw</p>
+              <p class="project-desc">
+                Продуктовая оболочка для деловых пользователей: ассистент должен быть готов к работе сразу после оплаты, без ручной настройки API-ключей и технических деталей.
+              </p>
+              <ul class="list">
+                <li><strong>Интеграции:</strong> Google Календарь, Задачи, Документы, Таблицы, Gmail, PDF, веб-поиск и погода.</li>
+                <li><strong>Голосовой ввод:</strong> отдельная транскрибация через Whisper перед передачей текста в LLM.</li>
+                <li><strong>Оптимизация контекста:</strong> ассистент заточен на рабочие задачи, напоминания, встречи, документы и рутинные операции.</li>
+                <li><strong>Дальше:</strong> обработка командных созвонов, саммари, выделение задач и автоматическое занесение встреч в календарь.</li>
+              </ul>
+              <div class="tech-row">
+                <span class="tech">OpenClaw</span>
+                <span class="tech">Whisper</span>
+                <span class="tech">Google API</span>
+                <span class="tech">PostgreSQL</span>
+                <span class="tech">Telegram</span>
+                <span class="tech">Multi-tenant</span>
+              </div>
+              <a class="project-link" href="https://clawpad-theta.vercel.app/#scenarios" target="_blank" rel="noopener">Открыть ClawPad</a>
+            </div>
+            <aside class="project-aside">
+              <div class="aside-box"><span>Аудитория</span><strong>Нетехнические бизнес-пользователи</strong></div>
+              <div class="aside-box"><span>Ценность</span><strong>Работает без настройки</strong></div>
+              <div class="aside-box"><span>Статус</span><strong>Активная разработка</strong></div>
+            </aside>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>Как я работаю</h2>
+        <p class="section-note">Подход к задачам, который помогает собирать сложные проекты без классического наймового опыта.</p>
+      </div>
+      <div class="process">
+        <article class="step">
+          <span>01</span>
+          <h3>Формулирую цель</h3>
+          <p>Сначала фиксирую, какой результат нужен пользователю или бизнесу, и где система должна принимать решения.</p>
+        </article>
+        <article class="step">
+          <span>02</span>
+          <h3>Декомпозирую</h3>
+          <p>Разбиваю продукт на модули, роли агентов, инструменты, хранилища, ограничения и проверяемые этапы.</p>
+        </article>
+        <article class="step">
+          <span>03</span>
+          <h3>Собираю с AI</h3>
+          <p>Использую Codex, Claude и OpenClaw как инженерных исполнителей: ставлю задачи, проверяю результат, уточняю требования.</p>
+        </article>
+        <article class="step">
+          <span>04</span>
+          <h3>Проверяю практикой</h3>
+          <p>Тестирую гипотезы в реальной среде: задержки, цепочки действий, поведение агентов, интеграции и пользовательские сценарии.</p>
+        </article>
+      </div>
+    </section>
+
+    <footer class="footer">
+      AI Builder · Agentic Systems · Automation · SaaS · 2026
+    </footer>
+  </main>
+</body>
+</html>
